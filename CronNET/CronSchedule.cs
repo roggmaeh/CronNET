@@ -64,6 +64,8 @@ namespace CronNET
 
         public bool isTime(DateTime date_time)
         {
+            if (minutes == null | hours == null | days_of_month == null | days_of_week == null | months == null)
+                return false;
             return minutes.Contains(date_time.Minute) &&
                    hours.Contains(date_time.Hour) &&
                    days_of_month.Contains(date_time.Day) &&
@@ -174,8 +176,18 @@ namespace CronNET
             else
                 end = int.Parse(split[1]);
 
-            for (int i = start; i <= end; ++i)
-                ret.Add(i);
+            if (start < end)
+            {
+                for (int i = start; i <= end; i++)
+                    ret.Add(i);
+            }
+            else
+            {
+                for (int i = 0; i <= end; i++)
+                    ret.Add(i);
+                for (int i = start; i <= 24; i++)
+                    ret.Add(i);
+            }
 
             return ret;
         }
