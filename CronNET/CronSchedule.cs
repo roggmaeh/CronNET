@@ -56,6 +56,8 @@ namespace CronNET
 
         public bool isValid(string expression)
         {
+            if (string.IsNullOrWhiteSpace(expression))
+                return false;
             MatchCollection matches = validation_regex.Matches(expression);
             return matches.Count > 0;//== 5;
         }
